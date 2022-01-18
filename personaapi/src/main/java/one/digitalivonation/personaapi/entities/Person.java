@@ -1,4 +1,4 @@
-package one.digitalivonation.personaapi;
+package one.digitalivonation.personaapi.entities;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

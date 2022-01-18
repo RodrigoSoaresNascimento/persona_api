@@ -1,22 +1,24 @@
 package one.digitalivonation.personaapi.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import one.digitalivonation.personaapi.Person;
-import one.digitalivonation.personaapi.dto.MessageResponseDTO;
 import one.digitalivonation.personaapi.dto.mapper.PersonMapper;
 import one.digitalivonation.personaapi.dto.request.PersonDTO;
+import one.digitalivonation.personaapi.dto.response.MessageResponseDTO;
+import one.digitalivonation.personaapi.entities.Person;
+import one.digitalivonation.personaapi.exception.PersonNotFoundException;
 import one.digitalivonation.personaapi.reposity.PersonRepository;
 
 @Service
 public class PersonService {
 	
-	private PersonRepository personRepository;
+	private static PersonRepository personRepository;
 	
 	private final PersonMapper personMapper = PersonMapper.INSTANCE;
 
@@ -39,11 +41,34 @@ public class PersonService {
 	}
 
 	public List<PersonDTO> listAll() {
-		List <Person> allPeople = personRepository.findAll();
-		return allPeople.stream()
-				.map(personMapper::toDTO)
-				.collect(Collectors.toList());
+		List <Person> people = personRepository.findAll();
+		return people.stream()
+				.map(personMapper::toTDO)
+                .collect(Collectors.toList());
 	}
+
+	public PersonDTO findById(Long id) throws PersonNotFoundException {
+
+		 Person person = verifyIfExists(id);
+		return personMapper.toTDO(person);
+		
+	}
+
+	public static void delete(Long id) throws PersonNotFoundException {
+		
+		 verifyIfExists(id);
+		
+		personRepository.deleteById(id);
+		
+		
+	}
+	
+	private static  Person verifyIfExists(Long id) throws PersonNotFoundException{
+		
+		return personRepository.findById(id)
+				.orElseThrow(()-> new PersonNotFoundException(id));
+	}
+
 
 
 }

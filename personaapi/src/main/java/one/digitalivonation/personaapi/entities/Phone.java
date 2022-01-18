@@ -1,4 +1,4 @@
-package one.digitalivonation.personaapi;
+package one.digitalivonation.personaapi.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import one.digitalivonation.personaapi.enums.PhoneType;
 
 
 @Data

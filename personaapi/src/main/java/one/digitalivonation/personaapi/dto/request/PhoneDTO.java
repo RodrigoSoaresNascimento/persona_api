@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import one.digitalivonation.personaapi.PhoneType;
+import one.digitalivonation.personaapi.enums.PhoneType;
 
 public class PhoneDTO {
 	

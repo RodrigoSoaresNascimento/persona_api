@@ -1,4 +1,4 @@
-package one.digitalivonation.personaapi;
+package one.digitalivonation.personaapi.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
